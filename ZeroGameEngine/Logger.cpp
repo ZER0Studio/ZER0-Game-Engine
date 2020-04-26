@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string>
 
+#include "Defines.h"
 #include "Logger.h"
 
 namespace ZEROGE {
@@ -9,10 +10,6 @@ namespace ZEROGE {
 	static void writeLog(const char* prepend, const char* message, va_list args ) {
 		vprintf((std::string(prepend) + message + "\n").c_str(), args);
 
-	}
-
-	void changeColor(int desiredColor) {
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), desiredColor);
 	}
 
 	void Logger::Trace(const char* message, ...) {
@@ -35,13 +32,7 @@ namespace ZEROGE {
 		va_end(args);
 
 	}
-	void Logger::Trace(const char* message, ...) {
-		va_list args;
-		va_start(args, message);
-		writeLog("[ TRACE ] => ", message, args);
-		va_end(args);
 
-	}
 	void Logger::Error(const char* message, ...) {
 		va_list args;
 		va_start(args, message);
@@ -55,6 +46,7 @@ namespace ZEROGE {
 		writeLog("[ Fatal ] => ", message, args);
 		va_end(args);
 
+		ASSERT(false);
 	}
 	
 }

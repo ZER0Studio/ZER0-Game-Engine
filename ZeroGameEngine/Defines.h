@@ -13,8 +13,8 @@
 #endif
 
 #ifdef PLATFORM_WINDOWS
-#define FORCEINLINE __forceinline;
-#define FORCENOINLINE _declspec(noinline)
+#define FORCEINLINE __forceinline
+#define FORCENOINLINE __declspec(noinline)
 #ifdef ZEROGE_BUILD_LTB
 #define ZEROGE_API __declspec(dllexport)
 #else
@@ -34,7 +34,7 @@
 
 #if _MSC_VER
 #include <intrin.h>
-#define debugBreak() __debugBreak();
+#define debugBreak() __debugbreak();
 #else
 #define debugBreak() __asm { int 3 }
 #endif // ASSERTIONS_ENABLED

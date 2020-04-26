@@ -1,4 +1,2 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(376,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
-  main.cpp
-c:\users\root\desktop\projects\zer0-game-engine\zerogameengine\defines.h(82): warning C4091: '__forceinline ': ignorado à esquerda de 'int' quando nenhuma variável é declarada
-  ZeroGameEngine.vcxproj -> C:\Users\Root\Desktop\Projects\ZER0-Game-Engine\$build\ZeroGameEngine.exe
+﻿  main.cpp
+  ZeroGameEngine.vcxproj -> C:\Users\Root\Desktop\Projects\ZER0-Game-Engine\build\ZeroGameEngine.exe
