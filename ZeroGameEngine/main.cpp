@@ -1,8 +1,12 @@
-#include <GLFW\glfw3.h>
-
-#include "Logger.h"
+#include "Engine.h"
 
 int main(int argc, const char** argv) {
-	ZEROGE::Logger::Log("Initializing Zero Game Engine v%d", 1);
+
+
+	ZEROGE::Engine* engine = new ZEROGE::Engine("Zero Game Engine v1");
+	engine->Run();
+
+	delete engine;
+
 	return 0;
 }

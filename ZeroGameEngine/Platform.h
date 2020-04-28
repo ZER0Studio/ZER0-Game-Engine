@@ -4,7 +4,7 @@ struct GLFWwindow;
 
 namespace ZEROGE {
 
-	class Engine
+	class Engine;
 
 	class Platform {
 	public:
@@ -14,6 +14,7 @@ namespace ZEROGE {
 
 		const bool StartGameTime();
 	private:
+		Engine* _engine;
 		GLFWwindow* _window;
 
 	};

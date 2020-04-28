@@ -1,2 +1,9 @@
-﻿  main.cpp
-  ZeroGameEngine.vcxproj -> C:\Users\Root\Desktop\Projects\ZER0-Game-Engine\build\ZeroGameEngine.exe
+﻿  Platform.cpp
+c:\users\root\desktop\projects\zer0-game-engine\zerogameengine\platform.cpp(13): error C2440: '=': não é possível converter de 'ZEROGE::Window *' para 'GLFWwindow *'
+  c:\users\root\desktop\projects\zer0-game-engine\zerogameengine\platform.cpp(13): note: Tipos apontados não são relacionados; conversão requer reinterpret_cast, conversão C-style ou conversão function-style
+c:\users\root\desktop\projects\zer0-game-engine\zerogameengine\platform.cpp(15): error C2027: uso de tipo indefinido 'GLFWwindow'
+  c:\users\root\desktop\projects\zer0-game-engine\external\include\glfw\glfw3.h(1157): note: consulte a declaração de 'GLFWwindow'
+c:\users\root\desktop\projects\zer0-game-engine\zerogameengine\platform.cpp(18): error C2027: uso de tipo indefinido 'GLFWwindow'
+  c:\users\root\desktop\projects\zer0-game-engine\external\include\glfw\glfw3.h(1157): note: consulte a declaração de 'GLFWwindow'
+c:\users\root\desktop\projects\zer0-game-engine\zerogameengine\platform.cpp(20): error C2027: uso de tipo indefinido 'GLFWwindow'
+  c:\users\root\desktop\projects\zer0-game-engine\external\include\glfw\glfw3.h(1157): note: consulte a declaração de 'GLFWwindow'
