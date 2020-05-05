@@ -1,26 +1,35 @@
 #define GLFW_INCLUDE_VULKAN
 #include<vulkan\vulkan.h>
 
+#include <GLFW\glfw3.h>
 #include "Logger.h"
 #include "Engine.h"
 #include "Platform.h"
-#include "Window.h"
 
 namespace ZEROGE {
 	Platform::Platform(Engine* engine, const char* applicationName) {
 		Logger::Trace("Initializing platform engine layer");
 		_engine = engine;
-		_window = new Window(1280, 720, applicationName);
+		glfwInit();
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+		_window = glfwCreateWindow(1280, 720, applicationName, nullptr, nullptr);
+		glfwSetWindowUserPointer(_window, this);
+
+		
 	}
-	Platform::~Platform() { _window->~Window(); }
+	Platform::~Platform() {  
+		if (_window)
+		{
+			glfwDestroyWindow(_window);
+		}
+		glfwTerminate();
+	}
 
 	const bool Platform::StartGameTime() {
-		while (!_window->closed())
+		while (!glfwWindowShouldClose(_window))
 		{
-			_window->clear();
 			glfwPollEvents();
 			_engine->OnTime(0);
-
 
 		}
 		return true;
