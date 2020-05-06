@@ -6,7 +6,7 @@
 
 namespace ZEROGE {
 
-	class Platform
+	class Platform;
 
 	class VulkanRender
 	{

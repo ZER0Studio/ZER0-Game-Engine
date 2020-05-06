@@ -25,6 +25,10 @@ namespace ZEROGE {
 		glfwTerminate();
 	}
 
+	void Platform::GetRequiredExtensions(U32* extensionCount, const char*** extensionNames) {
+		*extensionNames = glfwGetRequiredInstanceExtensions(extensionCount);
+	}
+
 	const bool Platform::StartGameTime() {
 		while (!glfwWindowShouldClose(_window))
 		{

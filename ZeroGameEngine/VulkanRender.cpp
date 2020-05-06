@@ -1,8 +1,10 @@
+#include <vector>
 
 #include "VulkanRender.h"
 #include "Platform.h"
 #include "Logger.h"
 #include "Defines.h"
+#include "VulkanUtils.h"
 
 namespace ZEROGE {
 
@@ -20,6 +22,55 @@ namespace ZEROGE {
 
 		VkInstanceCreateInfo instanceCreateInfo = { VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO };
 		instanceCreateInfo.pApplicationInfo = &appInfo;
+
+		const char** pfe = nullptr;
+		U32 count = 0;
+		_platform->GetRequiredExtensions(&count, &pfe);
+		std::vector<const char*> platformExtensions;
+		for (U32 i = 0; i < count; i++)
+		{
+			platformExtensions.push_back(pfe[i]);
+		}
+		platformExtensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+
+		instanceCreateInfo.enabledExtensionCount = (U32)platformExtensions.size();
+		instanceCreateInfo.ppEnabledExtensionNames = platformExtensions.data();
+
+		std::vector<const char*> requiredValidationLayers = {
+			"VK_LAYER_KHRONOS_validation"
+		};
+
+		U32 availableLayerCount = 0;
+		VK_CHECK(vkEnumerateInstanceLayerProperties(&availableLayerCount, nullptr));
+		std::vector<VkLayerProperties> availableLayers(availableLayerCount);
+		VK_CHECK(vkEnumerateInstanceLayerProperties(&availableLayerCount, availableLayers.data()));
+
+		bool success = true;
+		for (U32 i = 0; i < (U32)requiredValidationLayers.size(); i++)
+		{
+			bool found = false;
+			for (U32 j = 0; j < availableLayerCount; j++)
+			{
+				if (strcmp(requiredValidationLayers[i], availableLayers[j].layerName) == 0)
+				{
+					found = true;
+					break;
+				}
+
+			}
+			if (!found)
+			{
+				success = false;
+				Logger::Fatal("Required validation layer is missing : %s", requiredValidationLayers[i]);
+				break;
+			}
+
+		}
+
+		instanceCreateInfo.enabledLayerCount = (U32)requiredValidationLayers.size();
+		instanceCreateInfo.ppEnabledLayerNames = requiredValidationLayers.data();
+
+		VK_CHECK(vkCreateInstance(&instanceCreateInfo, nullptr, &_instance));
 	}
 	VulkanRender::~VulkanRender() {
 

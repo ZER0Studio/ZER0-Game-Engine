@@ -5,6 +5,7 @@
 namespace ZEROGE {
 	
 	class Platform;
+	class VulkanRender;
 
 	class Engine
 	{
@@ -18,6 +19,7 @@ namespace ZEROGE {
 
 	private:
 		Platform* _platform;
+		VulkanRender* _render;
 	};
 
 }

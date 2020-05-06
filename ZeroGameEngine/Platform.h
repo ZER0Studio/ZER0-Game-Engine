@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Types.h"
+
 struct GLFWwindow;
 
 namespace ZEROGE {
@@ -11,6 +13,7 @@ namespace ZEROGE {
 		Platform(Engine* engine, const char* applicationName);
 		~Platform();
 		GLFWwindow* GetWindow() { return _window; }
+		void GetRequiredExtensions(U32* extensionCount, const char*** extensionNames );
 
 		const bool StartGameTime();
 	private:
