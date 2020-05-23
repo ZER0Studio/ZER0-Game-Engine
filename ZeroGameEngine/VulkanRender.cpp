@@ -8,6 +8,37 @@
 
 namespace ZEROGE {
 
+	static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
+		VkDebugUtilsMessageSeverityFlagBitsEXT		messageSeverity,
+		VkDebugUtilsMessageTypeFlagsEXT				messageTypes,
+		const VkDebugUtilsMessengerCallbackDataEXT*	pCallbckData,
+		void* pUserData) {
+
+		switch (messageSeverity)
+		{
+
+		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+			Logger::Trace(pCallbckData->pMessage);
+			break;
+		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+			Logger::Log(pCallbckData->pMessage);
+			break;
+		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
+			Logger::Warn(pCallbckData->pMessage);
+			break;
+		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
+			Logger::Error(pCallbckData->pMessage);
+			break;
+		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_FLAG_BITS_MAX_ENUM_EXT:
+			Logger::Log(pCallbckData->pMessage);
+			break;
+		default:
+			break;
+		}
+
+		return VK_FALSE;
+	}
+
 	VulkanRender::VulkanRender(Platform* platform) {
 		_platform = platform;
 		Logger::Trace("Initializing Vulkan render");
@@ -46,10 +77,10 @@ namespace ZEROGE {
 		VK_CHECK(vkEnumerateInstanceLayerProperties(&availableLayerCount, availableLayers.data()));
 
 		bool success = true;
-		for (U32 i = 0; i < (U32)requiredValidationLayers.size(); i++)
+		for (U32 i = 0; i < (U32)requiredValidationLayers.size(); ++i)
 		{
 			bool found = false;
-			for (U32 j = 0; j < availableLayerCount; j++)
+			for (U32 j = 0; j < availableLayerCount; ++j)
 			{
 				if (strcmp(requiredValidationLayers[i], availableLayers[j].layerName) == 0)
 				{
@@ -64,6 +95,9 @@ namespace ZEROGE {
 				Logger::Fatal("Required validation layer is missing : %s", requiredValidationLayers[i]);
 				break;
 			}
+			else {
+				Logger::Trace("Required Success layer : %s ( %d )", requiredValidationLayers[i], i);
+			}
 
 		}
 
@@ -71,8 +105,29 @@ namespace ZEROGE {
 		instanceCreateInfo.ppEnabledLayerNames = requiredValidationLayers.data();
 
 		VK_CHECK(vkCreateInstance(&instanceCreateInfo, nullptr, &_instance));
+
+		VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo = { VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT };
+		debugCreateInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT, VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT;
+		debugCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
+		debugCreateInfo.pfnUserCallback = debugCallback;
+		debugCreateInfo.pUserData = this;
+		PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(_instance, "vkCreateDebugUtilsMessengerEXT");
+		ASSERT_MSG(func, "Failed to create Debug Messager !");
+		func(_instance, &debugCreateInfo, nullptr, &_debugMessager);
+
+
 	}
 	VulkanRender::~VulkanRender() {
+
+		if (_debugMessager)
+		{
+			PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(_instance, "vkDestroyDebugUtilsMessengerEXT");
+			func(_instance, _debugMessager, nullptr);
+
+		}
+
+		vkDestroyInstance(_instance, nullptr);
+
 
 	}
 }

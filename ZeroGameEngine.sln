@@ -1,20 +1,36 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1082
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZeroGameEngine", "ZeroGameEngine\ZeroGameEngine.vcxproj", "{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZeroGameEngine2D", "ZeroGameEngine2D\ZeroGameEngine2D.vcxproj", "{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Debug|x64.ActiveCfg = Debug|x64
 		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Debug|x64.Build.0 = Debug|x64
+		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Debug|x86.ActiveCfg = Debug|Win32
+		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Debug|x86.Build.0 = Debug|Win32
 		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Release|x64.ActiveCfg = Debug|x64
 		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Release|x64.Build.0 = Debug|x64
+		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Release|x86.ActiveCfg = Release|Win32
+		{E4CDEF77-9604-4703-8101-D8E3CFDCFA7C}.Release|x86.Build.0 = Release|Win32
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Debug|x64.ActiveCfg = Debug|x64
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Debug|x64.Build.0 = Debug|x64
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Debug|x86.ActiveCfg = Debug|Win32
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Debug|x86.Build.0 = Debug|Win32
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Release|x64.ActiveCfg = Release|x64
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Release|x64.Build.0 = Release|x64
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Release|x86.ActiveCfg = Release|Win32
+		{CBCE882E-7100-4F99-A7C3-BC252EAA96F1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
